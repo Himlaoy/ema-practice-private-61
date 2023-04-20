@@ -1,12 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
 import { onAuthStateChanged } from 'firebase/auth';
 
 const Longin = () => {
+
     const {loginUser} = useContext(AuthContext)
     const [error, setError] = useState()
     const [success, setSuccess] = useState()
+    const navigate = useNavigate()
+    const location = useLocation()
+    console.log(location)
  
 
     const handleSubmit=(event)=>{
@@ -14,7 +18,7 @@ const Longin = () => {
         const form = event.target
         const email = form.email.value
         const password = form.password.value
-        console.log(email, password)
+        // console.log(email, password)
 
         loginUser(email, password)
         .then(result=>{
@@ -22,6 +26,7 @@ const Longin = () => {
             console.log(loggedUser)
             setSuccess('Login successfully')
             setError('')
+            navigate('/')
         })
         .catch(error=>{
             setError(error.message)
