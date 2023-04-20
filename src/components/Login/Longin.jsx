@@ -11,6 +11,8 @@ const Longin = () => {
     const navigate = useNavigate()
     const location = useLocation()
     console.log(location)
+    const from = location.state?.from?.pathname
+
  
 
     const handleSubmit=(event)=>{
@@ -23,10 +25,10 @@ const Longin = () => {
         loginUser(email, password)
         .then(result=>{
             const loggedUser = result.user
-            console.log(loggedUser)
+            // console.log(loggedUser)
             setSuccess('Login successfully')
             setError('')
-            navigate('/')
+            navigate(from, {replace: true})
         })
         .catch(error=>{
             setError(error.message)
