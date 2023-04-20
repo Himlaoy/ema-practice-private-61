@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Header.css'
 import logo from '../../images/Logo.svg'
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../Provider/AuthProvider';
 
 const Header = () => {
+
+    const {user, logOut} = useContext(AuthContext)
+
+    const getOut=()=>{
+        logOut()
+        .then(()=>{ })
+        .catch(error=>{
+            console.log(error.message)
+        })
+    }
+
     return (
         <nav className='Header'>
             <img src={logo} alt="" />
@@ -13,6 +25,10 @@ const Header = () => {
                 <Link to="/inventory">Inventory</Link>
                 <Link to="/Login">LogIn</Link>
                 <Link to="/signup">SignUp</Link>
+
+                {
+                    user && <span>{user.email} <button onClick={getOut}>SignUot</button></span>
+                }
             </div>
 
         </nav>

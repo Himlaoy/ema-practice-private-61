@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../Provider/AuthProvider';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const Longin = () => {
+    const {loginUser} = useContext(AuthContext)
+    const [error, setError] = useState()
+    const [success, setSuccess] = useState()
+ 
 
     const handleSubmit=(event)=>{
         event.preventDefault()
@@ -9,6 +15,20 @@ const Longin = () => {
         const email = form.email.value
         const password = form.password.value
         console.log(email, password)
+
+        loginUser(email, password)
+        .then(result=>{
+            const loggedUser = result.user
+            console.log(loggedUser)
+            setSuccess('Login successfully')
+            setError('')
+        })
+        .catch(error=>{
+            setError(error.message)
+            setSuccess('')
+        })
+
+
     }
 
     return (
@@ -26,8 +46,12 @@ const Longin = () => {
                 <input className='btn-submit' type="submit" value="Login" />
             </form>
             <p className='space'>Don't have an account? Please <Link to="/signup">SignUp</Link></p>
+            <p className='error'>{error}</p>
+            <p className='success'>{success}</p>
         </div>
     );
 };
 
 export default Longin;
+
+

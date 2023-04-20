@@ -14,6 +14,7 @@ import Longin from './components/Login/Longin';
 import cardProduct from './CardProduct/CardProduct';
 import CheckOut from './components/CheckOut/CheckOut';
 import SignUp from './components/SignUp/SignUp';
+import AuthProvider from './components/Provider/AuthProvider';
 
 const router = createBrowserRouter([
   {
@@ -29,21 +30,21 @@ const router = createBrowserRouter([
         element: <Product></Product>
       },
       {
-        path:'order',
-        element:<Order></Order>,
+        path: 'order',
+        element: <Order></Order>,
         loader: cardProduct,
       },
       {
-        path:'CheckOut',
+        path: 'CheckOut',
         element: <CheckOut></CheckOut>,
       },
       {
-        path:'login',
+        path: 'login',
         element: <Longin></Longin>,
       },
       {
-        path:'/signup',
-        element:<SignUp></SignUp>
+        path: '/signup',
+        element: <SignUp></SignUp>
       }
     ],
   },
@@ -52,6 +53,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <AuthProvider>
+      <RouterProvider router={router}></RouterProvider>
+    </AuthProvider>
   </React.StrictMode>,
 )
