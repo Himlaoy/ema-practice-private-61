@@ -7,6 +7,7 @@ import { AuthContext } from '../Provider/AuthProvider';
 const Header = () => {
 
     const {user, logOut} = useContext(AuthContext)
+    console.log(user)
 
     const getOut=()=>{
         logOut()
@@ -27,7 +28,7 @@ const Header = () => {
                 <Link to="/signup">SignUp</Link>
 
                 {
-                    user && <span>{user.email} <button onClick={getOut}>SignUot</button></span>
+                    user && <span className='text'>{user.email} <button onClick={getOut}>SignUot</button></span>
                 }
             </div>
 
